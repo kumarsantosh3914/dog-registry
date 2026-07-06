@@ -6,6 +6,7 @@ import v1Router from './routers/v1/index.router';
 import { appErrorHandler, genericErrorHandler } from './middlewares/error.middleware';
 import { attachCorrelationIdMiddleware } from './middlewares/correlation.middleware';
 import { connectDB } from './config/database';
+import { seedDogs } from './utils/seeder';
 
 const app: Express = express();
 
@@ -24,5 +25,7 @@ app.listen(serverConfig.PORT, async () => {
     console.log(`Server is running on http://localhost:${serverConfig.PORT}`);
 
     await connectDB();
-    console.log("Connected to MongoDB successfully")
+    console.log("Connected to MongoDB successfully");
+    
+    await seedDogs();
 })
