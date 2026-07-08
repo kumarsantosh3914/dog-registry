@@ -440,3 +440,39 @@
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+
+/* ===== Wakeup Warning ===== */
+.wakeup-warning {
+  background: var(--warning-bg);
+  border: 1px solid var(--warning-border);
+  color: var(--warning);
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  animation: fadeIn var(--transition) forwards;
+}
+
+.wakeup-warning-icon {
+  display: inline-block;
+  font-size: 1.2rem;
+  animation: slow-spin 2s linear infinite;
+}
+
+@keyframes slow-spin {
+  to { transform: rotate(360deg); }
+}
+
+.wakeup-warning-text {
+  line-height: 1.4;
+}
+
+.wakeup-warning-text strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+

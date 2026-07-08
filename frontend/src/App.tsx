@@ -41,6 +41,23 @@ function App() {
     setTimeout(() => setToasts((prev) => prev.filter((t) => t.id !== id)), 3000);
   }, []);
 
+  const [showWakeupWarning, setShowWakeupWarning] = useState(false);
+
+  // Monitor loading flags to detect if backend is taking a long time (cold start)
+  useEffect(() => {
+    const isAnyLoading = loading || creating || updating || !!deleting;
+    if (!isAnyLoading) {
+      setShowWakeupWarning(false);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setShowWakeupWarning(true);
+    }, 3500); // Show warning after 3.5 seconds
+
+    return () => clearTimeout(timer);
+  }, [loading, creating, updating, deleting]);
+
   /* ──── GET all dogs ──── */
   const fetchDogs = useCallback(async () => {
     setLoading(true);
@@ -154,6 +171,17 @@ function App() {
         <h1>🐕 Dog Registry</h1>
         <p>Manage your dog breed collection</p>
       </header>
+
+      {/* Wakeup Warning Banner */}
+      {showWakeupWarning && (
+        <div className="wakeup-warning">
+          <span className="wakeup-warning-icon">⏳</span>
+          <div className="wakeup-warning-text">
+            <strong>Waking up the server...</strong>
+            The backend is hosted on a free tier and has gone to sleep. Please wait while it starts up (this can take up to 60 seconds).
+          </div>
+        </div>
+      )}
 
       {/* Action Panels */}
       <div className="panels">
