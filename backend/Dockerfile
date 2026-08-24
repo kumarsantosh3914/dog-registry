@@ -12,7 +12,7 @@ COPY package*.json ./
 RUN npm ci
 
 # Copy source code
-COPY backend .
+COPY . .
 
 # Build TypeScript to JavaScript
 RUN npm run build
@@ -27,7 +27,7 @@ RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nodejs -u 1001
 
 # Copy package files
-COPY backend/package*.json ./
+COPY package*.json ./
 
 # Install only production dependencies
 RUN npm ci --only=production && npm cache clean --force
