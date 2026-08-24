@@ -22,3 +22,7 @@ export async function updateDog(id: string, dogDto: UpdateDogDTO) {
 export async function deleteDog(id: string) {
     return dogRepository.delete(id);
 }
+
+export async function getDogsGroupedByBreed() {
+    return dogRepository.groupByBreed();
+}
